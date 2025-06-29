@@ -1,0 +1,32 @@
+# Node modules
+/node_modules
+
+# Scraped output files
+/output
+/output/**/*
+
+# Environment files
+.env
+.env.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Editor directories
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
