@@ -36,13 +36,13 @@ npm install
 
 ### 1. Start the Backend Server
 
-In the `backend` directory, run the following command to start the Node.js server. By default, it will run on `http://localhost:5000`.
+In the `backend` directory, run the following command to start the Node.js server. By default, it will run on `http://localhost:5001`.
 
 ```bash
 npm start
 ```
 
-You should see the message `Scraper API running at http://localhost:5000` in the console.
+You should see the message `Scraper API running at http://localhost:5001` in the console.
 
 ### 2. Start the React Frontend
 
@@ -61,24 +61,61 @@ Once both the frontend and backend are running, you can use the application in y
 
 ### Two Scraping Modes:
 
-#### a) Automatic Scraping (No Selectors)
+#### a) Review Scraping (No Selectors)
 
 - Simply enter the URL and click **"Scrape Website"**.
 - The backend will attempt to automatically extract meaningful text blocks from the page. This is useful for articles or simple content pages.
 
-#### b) Structured Scraping (With CSS Selectors)
+#### b) General Scraping (With CSS Selectors)
 
 - For more precise data extraction (e.g., reviews, product listings), you need to provide CSS selectors.
 - Use your browser's developer tools (right-click -> Inspect) to find the selectors for the elements you want to scrape.
 - Fill in the selector fields in the UI.
 
-**Example for G2 Reviews (`https://www.g2.com/products/hubspot/reviews`)**
+**Example for Review Sites Scraping**
 
--   **root**: `.paper` (This is the main container for each review card)
--   **title**: `h3[itemprop="name"]` (The title of the review)
--   **description**: `div[itemprop="reviewBody"]` (The main text content of the review)
--   **date**: `span.c-midnight-90.pl-1` (The date the review was published)
--   **rating**: `div.stars` (The star rating element)
+The application also has a specialized endpoint for scraping review sites. You can use this feature by specifying:
+
+1. **Company Name**: The name of the company whose reviews you want to scrape
+2. **Date Range**: Start and end dates to filter reviews
+3. **Source**: One of the supported review platforms (G2, Capterra, or TrustRadius)
+
+```json
+{
+  "companyName": "Slack",
+  "startDate": "2025-01-01",
+  "endDate": "2025-06-30",
+  "source": "g2"
+}
+```
+
+This will return structured data like:
+
+```json
+[
+  {
+    "title": "Great Team Collaboration Tool",
+    "description": "Slack has transformed how our team communicates. The channels keep topics organized and the integrations with other tools make it a central hub for notifications.",
+    "date": "June 15, 2025",
+    "rating": 4.5,
+    "reviewer": {
+      "name": "John D.",
+      "info": "Mid-Market (51-1000 emp.)"
+    },
+    "source": "G2"
+  }
+]
+```
+
+
+**Example for General Web Scraping with CSS Selectors**
+
+-   **root**: `.card` (This is the container for each item you want to extract)
+-   **title**: `.card-title` (The title element within each card)
+-   **description**: `.card-text` (The description text within each card)
+-   **price**: `.price-value` (The price element within each card)
+-   **image**: `.card-img img` (The image element within each card)
+
 
 3.  **View Results**: The scraped data will be displayed in a JSON format on the page.
 
