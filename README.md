@@ -1,4 +1,4 @@
-# Full-Stack Dynamic Web Scraper
+# Pulse Web Scraper
 
 This project is a full-stack application that allows you to dynamically scrape content from websites. It consists of a React frontend and a Node.js backend that uses Puppeteer for web scraping.
 
